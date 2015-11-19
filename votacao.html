@@ -7,9 +7,12 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/sheetrock.min.js"></script>
 <script src="js/handlebars.min.js"></script>
+<script src="js/typeahead.bundle.js"></script>
+<script src="js/locais.js"></script>
 <script src="js/misc.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="css/misc.css" >
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
@@ -20,6 +23,22 @@
 		// Compile the Handlebars template for HR leaders.
 		var HRTemplate = Handlebars.compile($('#hr-template').html());
 
+		locais = new Bloodhound({
+  			datumTokenizer: Bloodhound.tokenizers.whitespace,
+  			queryTokenizer: Bloodhound.tokenizers.whitespace,
+  			// `states` is an array of state names defined in "The Basics"
+  			local: locais
+		});
+		$("input[name=busca]").typeahead({
+  			hint: true,
+  			highlight: true,
+  			minLength: 3
+		},
+		{
+  			name: 'busca',
+  			source: locais
+		});
+
 		$("#buscar").click(function () {
 			var nome = $("input[name=busca]").val()
 			$('#hr').empty()
@@ -28,7 +47,7 @@
 				  query: "select * where B contains '"+nome+"'",
 				  fetchSize: 10,
 				  rowTemplate: HRTemplate
-				});			
+				});	
 		});
 
 	});
@@ -51,7 +70,7 @@
 	<div class="container">
 	<h4>Local de votação</h4>
 		<div class="input-group input-group-lg">
-  			<input name="busca" type="text" class="form-control" placeholder="Local de votação nas eleições" aria-describedby="sizing-addon1">
+  			<input name="busca" type="text" class="typeahead" placeholder="Local de votação nas eleições" aria-describedby="sizing-addon1">
   			 <span class="input-group-btn">
         		<button id="buscar" class="btn btn-default" type="button">Go!</button>
       		</span>
