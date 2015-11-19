@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>#OCUPACONSELHO</title>
+
+<!-- Load jQuery and Sheetrock from CDNJS -->
+<script src="js/jquery.min.js"></script>
+<script src="js/sheetrock.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/misc.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+<script>
+	$().ready(function (){
+		var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1kWpm-G3dAFwVQxkH6n_BNZqJUkNAkUrpZ6ZjBuff9gw/edit#gid=1275282574'
+		// Compile the Handlebars template for HR leaders.
+		var HRTemplate = Handlebars.compile($('#hr-template').html());
+
+		$("#buscar").click(function () {
+			var nome = $("input[name=busca]").val()
+			$('#hr').empty()
+			$('#hr').sheetrock({
+				  url: mySpreadsheet,
+				  query: "select * where B contains '"+nome+"'",
+				  fetchSize: 10,
+				  rowTemplate: HRTemplate
+				});			
+		});
+
+	});
+</script>
+
+<style>
+.card {
+	width:500px;
+	height:500px;
+	border:1px solid black;
+	text-align: center;
+	float:left;
+	margin:5px;
+}
+
+</style>
+</head>
+
+<body>
+	<div class="container">
+	<h4>Local de votação</h4>
+		<div class="input-group input-group-lg">
+  			<input name="busca" type="text" class="form-control" placeholder="Local de votação nas eleições" aria-describedby="sizing-addon1">
+  			 <span class="input-group-btn">
+        		<button id="buscar" class="btn btn-default" type="button">Go!</button>
+      		</span>
+		</div>
+		<div id="hr">
+  		<script id="hr-template" type="text/x-handlebars-template">
+	    	<div class="card">
+	    		<b>Seu local de votação para o Conselho Participativo é:</b>
+	    			<h2>{{cells.NOME}}</h2>
+	    			<div>{{cells.ENDEREÇO}}</div>
+	    			<iframe src="http://maps.google.com/maps?q={{cells.ENDEREÇO}}, São Paulo, SP&output=embed&iwloc=near" width="400" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+	    	</div>
+  		</script>
+		</ol>
+	</<div>
+</body>
+</html>
