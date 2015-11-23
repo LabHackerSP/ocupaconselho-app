@@ -13,6 +13,9 @@
 
 <link rel="stylesheet" href="css/main.css" >
 <link rel="stylesheet" href="css/misc.css" >
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
@@ -31,7 +34,7 @@
 		});
 
 		$("#buscar").click(function () {
-			var nome = $("input[name=busca]").val()
+			var nome = $("input[name=nome]").val()
 			$('#hr').empty()
 			$('#hr').sheetrock({
 				  url: mySpreadsheet,
@@ -46,64 +49,104 @@
 
 <style>
 #hr {
-	width:100%;
 	text-align: center;
+	clear:both;
+	width:945px;
+	margin:0 auto;
 }
 .card {
-	width:200px;
+	width:187px;
 	height:200px;
-	border:1px solid black;
 	text-align: center;
 	float:right;
-	margin:5px;
+	margin:1px;
+	margin-bottom: 5px;
+	background-color: #F2F2F2;
 }
 
 .foto {
-	margin-top:15px;
-	margin-left:15px;
-	width:75px;
-	height:75px;
-	border:1px solid black;
+	margin-top:5px;
+	margin-left:5px;
+	width:82px;
+	height:110px;
+	background-color: #FFF;
 	float:left;
 }
 .numero {
-	font-size:1.2em;
+	font-size:17px;
 	float:right;
 }
+.numero .lab {
+	font-size: 8px;
+}
 .top {
-	height:80px;
+	height:135px;
 	clear:both;
 }
+.nome {
+	height:40px;
+	font-size: 15px;
+}
+
 .bottom {
-	height:100px;
+	height:27px;
 	clear:both;
+	background-color: #8C3438;
 }
+
+.tags { 
+	color:#FFF;
+}
+
 </style>
 </head>
 
-<body>
-	<div class="container">
-	<h4>Candidatos</h4>
-		<div class="input-group input-group-lg">
-  			<input name="busca" type="text" class="form-control" placeholder="Nome" aria-describedby="sizing-addon1">
-  			 <span class="input-group-btn">
-        		<button id="buscar" class="btn btn-default" type="button">Go!</button>
-      		</span>
+<body class="candidato">
+	<div class="header">
+		<div class="logo"><img src="imgs/logo.png"></div>
+		<ul class="menu">
+			<li><a href="">O que é?</a></li>
+			<li><a href="">Documentos e Downloads</a></li>
+			<li><a href="">Lista de Candidatos</a></li>
+			<li><a href="">Locais de Votação</a></li>
+			<li><a href="" class="fb">Fb</a></li>
+		</ul>
+	</div>
+	
+	<div class="banner">
+	</div>
+
+	<div class="tagline">
+		<h2>AS ELEIÇÕES SERÃO DIA 06/12 - PREPARE-SE:</h2>
+	</div>
+	
+
+	<div class="middle">
+		<div class="busca-holder">
+		<div class="busca">
+  			<input name="nome" type="text" placeholder="Nome">
+  			<input name="sub" type="text"  placeholder="Sub">
+  			<input name="tag" type="text" placeholder="Tags">
+		</div>
 		</div>
 		<div id="hr">
   		<script id="hr-template" type="text/x-handlebars-template">
 	    	<div class="card">
-	    		<div class="numero label label-danger">{{cells.Numero}}</div>
+	    		
 	      		<div class="top">
 	      			<img class="foto" src="" />
-	      			<div class="nome">{{cells.Nome}}</div>
-	      		</div><br />
+	      			<div class="numero">
+	      			<span class="lab">NUMERO DE URNA</span><br />
+	      				<span>{{cells.Numero}}</span>
+	      				</div>
+	      		</div>
+	      		<div class="nome">{{cells.Nome}}</div>
 	      		<div class="bottom">
 		      		<div class="tags">
-		      			<span class="label label-info">#educacao</span>
-		      			<span class="label label-info">#cultura</span>
-		      		</div><br />
-		      		<div class="label label-warning">{{cells.Subprefeitura}}</div>
+		      			<span class="tag">#educacao</span>
+		      			<span class="tag">#cultura</span>
+		      		</div>
+		      		<!-- <div class="label label-warning">{{cells.Subprefeitura}}</div> -->
 	    		</div>
 	    	</div>
   		</script>

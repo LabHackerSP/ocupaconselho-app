@@ -49,7 +49,7 @@
   width:100%;
   height:269px;
   background-color: #8C3438;
-  background-image: url('imgs/banner.png');
+  background-image: url('../imgs/banner.png');
 }
 
 .tagline {
@@ -71,22 +71,44 @@
   text-align: center;
 }
 
-.busca {
+.busca-holder {
+  width:100%;
+  text-align: center;
+}
+
+.votacao .busca {
   width:545px;
   margin:0 auto;
 }
 
+.candidato .busca { 
+  width:945px;
+  margin:0 auto;
+}
+.votacao .busca input {
+    margin-top: 75px;
+    width:545px;
+    height:60px;
+    font-size: 23px;
+}
+
+.candidato .busca input {
+    margin-top:50px;
+    margin-bottom:50px;
+    margin-right: 15px;
+    width:300px;
+    height:34px;
+    font-size: 13px;
+    font-weight: 600;
+    float:left;
+}
 .busca input {
-  margin-top: 75px;
   background-color: #00A99D;
-  width:545px;
-  height:60px;
   border-radius:10px;
   border-color: #00A99D;
   border-style: none;
   text-align: center;
   color:#FFFFFF;
-  font-size: 23px;
   font-weight: 600;
 }
 
