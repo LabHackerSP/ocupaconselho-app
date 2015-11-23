@@ -60,7 +60,7 @@
 </script>
 </head>
 
-<body>
+<body class="votacao">
 	<div class="header">
 		<div class="logo"><img src="imgs/logo.png"></div>
 		<ul class="menu">
@@ -80,9 +80,11 @@
 	</div>
 			
 	<div class="middle">
+		<div class="busca-holder">
 		<div class="busca">
-  			<input name="busca" type="text" class="typeahead" placeholder="DIGITE SEU LOCAL DE VOTAÇÃO" aria-describedby="sizing-addon1">
+  			<input id="busca-sessao" name="busca" type="text" class="typeahead" placeholder="DIGITE SEU LOCAL DE VOTAÇÃO" aria-describedby="sizing-addon1">
 			<a class="but">NÃO SEI O MEU LOCAL DE VOTAÇÃO</a>
+		</div>
 		</div>
 		<div id="hr">
   		<script id="hr-template" type="text/x-handlebars-template">
