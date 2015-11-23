@@ -12,10 +12,13 @@
 <script src="js/misc.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="css/main.css" >
 <link rel="stylesheet" href="css/misc.css" >
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
 <script>
 	$().ready(function (){
@@ -39,8 +42,9 @@
   			source: locais
 		});
 
-		$("#buscar").click(function () {
-			var nome = $("input[name=busca]").val()
+		$('input[name=busca]').keypress(function (e) {
+  			if (e.which == 13) {
+    		var nome = $("input[name=busca]").val()
 			$('#hr').empty()
 			$('#hr').sheetrock({
 				  url: mySpreadsheet,
@@ -48,32 +52,37 @@
 				  fetchSize: 10,
 				  rowTemplate: HRTemplate
 				});	
+    		return false;    //<---- Add this line
+  			}
 		});
 
 	});
 </script>
-
-<style>
-.card {
-	width:500px;
-	height:500px;
-	border:1px solid black;
-	text-align: center;
-	float:left;
-	margin:5px;
-}
-
-</style>
 </head>
 
 <body>
-	<div class="container">
-	<h4>Local de votação</h4>
-		<div class="input-group input-group-lg">
-  			<input name="busca" type="text" class="typeahead" placeholder="Local de votação nas eleições" aria-describedby="sizing-addon1">
-  			 <span class="input-group-btn">
-        		<button id="buscar" class="btn btn-default" type="button">Go!</button>
-      		</span>
+	<div class="header">
+		<div class="logo"><img src="imgs/logo.png"></div>
+		<ul class="menu">
+			<li><a href="">O que é?</a></li>
+			<li><a href="">Documentos e Downloads</a></li>
+			<li><a href="">Lista de Candidatos</a></li>
+			<li><a href="">Locais de Votação</a></li>
+			<li><a href="" class="fb">Fb</a></li>
+		</ul>
+	</div>
+	
+	<div class="banner">
+	</div>
+
+	<div class="tagline">
+		<h2>AS ELEIÇÕES SERÃO DIA 06/12 - PREPARE-SE:</h2>
+	</div>
+			
+	<div class="middle">
+		<div class="busca">
+  			<input name="busca" type="text" class="typeahead" placeholder="DIGITE SEU LOCAL DE VOTAÇÃO" aria-describedby="sizing-addon1">
+			<a class="but">NÃO SEI O MEU LOCAL DE VOTAÇÃO</a>
 		</div>
 		<div id="hr">
   		<script id="hr-template" type="text/x-handlebars-template">
