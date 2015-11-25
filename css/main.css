@@ -31,6 +31,17 @@
   content: "";
 }
 
+.header .fb {
+  background-image: url('../imgs/facebook-icon.png');
+  overflow: hidden;
+  text-indent:100%;
+  width: 28px;
+  height:28px;
+  float:right;
+  margin-top: -30px;
+  margin-right:14px;
+}
+
 .header ul li a { 
   color:#fff;
 }
