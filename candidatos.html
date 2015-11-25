@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
 <link rel="stylesheet" href="css/main.css" >
+<link rel="stylesheet" href="css/typeahead.css" >
 <link rel="stylesheet" href="css/misc.css" >
 
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
@@ -21,7 +22,6 @@
 <script src="js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
 <script>
-
 	var toggle = function (i) {
 		$(i).toggleClass("selected");
 		var count = $(".selected").length;
@@ -77,6 +77,24 @@
 
 		var local_sheet = 'https://docs.google.com/spreadsheets/d/1kWpm-G3dAFwVQxkH6n_BNZqJUkNAkUrpZ6ZjBuff9gw/edit#gid=1275282574';
 		
+		// Compile the Handlebars template for HR leaders.
+		var HRTemplate = Handlebars.compile($('#hr-template').html());
+		var HRLocalTemplate = Handlebars.compile($('#hr-local-template').html());
+
+
+		var refreshBusca = function (){
+				$('#hr').fadeOut(function () {
+				$(".card:not(.selected)").remove();
+				$('#hr').sheetrock({
+				  url: candidatos_sheet,
+				  query: getQuery(),
+				  fetchSize: 10,
+				  rowTemplate: HRTemplate
+				});
+				$(this).fadeIn();
+			});
+		}
+
 		//Sub typeahead
 		sheetrock({
   			url: subs_sheet,
@@ -105,6 +123,10 @@
 					{
   						name: 'sub',
   						source: values
+					});
+
+					$('input[name=sub]').bind('typeahead:select', function(ev, suggestion) {
+  						refreshBusca();
 					});
   		}
 		});
@@ -138,14 +160,15 @@
   						name: 'tag',
   						source: values
 					});
+
+					$('input[name=tag]').bind('typeahead:select', function(ev, suggestion) {
+  						refreshBusca();
+					});
   		}
 		});
 
 
 		
-		// Compile the Handlebars template for HR leaders.
-		var HRTemplate = Handlebars.compile($('#hr-template').html());
-		var HRLocalTemplate = Handlebars.compile($('#hr-local-template').html());
 
 		// Load top five HR leaders.
 		$('#hr').sheetrock({
@@ -165,17 +188,7 @@
 		}
 
 		$(".busca input").change(function () {
-			$('#hr').fadeOut(function () {
-				$(".card:not(.selected)").remove();
-				$('#hr').sheetrock({
-				  url: candidatos_sheet,
-				  query: getQuery(),
-				  fetchSize: 10,
-				  rowTemplate: HRTemplate
-				});
-				$(this).fadeIn();
-			});
-						
+			refreshBusca();
 		});
 
 	});
