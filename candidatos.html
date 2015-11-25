@@ -51,7 +51,7 @@
 		var tag = $("input[name=tag]").val()
 		q = []
 		if (nome != '') {
-		 	q.push(" B contains " + '"' + nome + '"' )
+		 	q.push(" B contains " + '"' + nome.toUpperCase() + '"' )
 		}
 		
 		if (sub != '') {
