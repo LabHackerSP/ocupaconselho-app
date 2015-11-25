@@ -1,1 +1,100 @@
-Olá mundo!
+<html>
+<head>
+<meta charset="UTF-8">
+<title>#OCUPACONSELHO</title>
+
+<!-- Load jQuery and Sheetrock from CDNJS -->
+<script src="js/jquery.min.js"></script>
+<script src="js/sheetrock.min.js"></script>
+<script src="js/handlebars.min.js"></script>
+<script src="js/typeahead.bundle.js"></script>
+<script src="js/locais.js"></script>
+<script src="js/misc.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="css/main.css" >
+<link rel="stylesheet" href="css/misc.css" >
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+<script>
+	$().ready(function (){
+		var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1kWpm-G3dAFwVQxkH6n_BNZqJUkNAkUrpZ6ZjBuff9gw/edit#gid=1275282574'
+		// Compile the Handlebars template for HR leaders.
+		var HRTemplate = Handlebars.compile($('#hr-template').html());
+
+		locais = new Bloodhound({
+  			datumTokenizer: Bloodhound.tokenizers.whitespace,
+  			queryTokenizer: Bloodhound.tokenizers.whitespace,
+  			// `states` is an array of state names defined in "The Basics"
+  			local: locais
+		});
+		$("input[name=busca]").typeahead({
+  			hint: true,
+  			highlight: true,
+  			minLength: 3
+		},
+		{
+  			name: 'busca',
+  			source: locais
+		});
+
+		$('input[name=busca]').keypress(function (e) {
+  			if (e.which == 13) {
+    		var nome = $("input[name=busca]").val()
+			$('#hr').empty()
+			$('#hr').sheetrock({
+				  url: mySpreadsheet,
+				  query: "select * where B contains '"+nome+"'",
+				  fetchSize: 10,
+				  rowTemplate: HRTemplate
+				});	
+    		return false;    //<---- Add this line
+  			}
+		});
+
+	});
+</script>
+</head>
+
+<body class="votacao">
+	<div class="header">
+		<div class="logo"><img src="imgs/logo.png"></div>
+		<ul class="menu">
+			<li><a href="">O que é?</a></li>
+			<li><a href="">Documentos e Downloads</a></li>
+			<li><a href="">Lista de Candidatos</a></li>
+			<li><a href="">Locais de Votação</a></li>
+			<li><a href="" class="fb">Fb</a></li>
+		</ul>
+	</div>
+	
+	<div class="banner">
+	</div>
+
+	<div class="tagline">
+		<h2><span class="vertical">AS ELEIÇÕES SERÃO DIA 06/12 - PREPARE-SE:</span></h2>
+	</div>
+			
+	<div class="middle">
+		<div class="busca-holder">
+		<div class="busca">
+  			<input id="busca-sessao" name="busca" type="text" class="typeahead" placeholder="DIGITE SEU LOCAL DE VOTAÇÃO" aria-describedby="sizing-addon1">
+			<a class="but">NÃO SEI O MEU LOCAL DE VOTAÇÃO</a>
+		</div>
+		</div>
+		<div id="hr">
+  		<script id="hr-template" type="text/x-handlebars-template">
+	    	<div class="card">
+	    		<b>Seu local de votação para o Conselho Participativo é:</b>
+	    			<h2>{{cells.NOME}}</h2>
+	    			<div>{{cells.ENDEREÇO}}</div>
+	    			<iframe src="http://maps.google.com/maps?q={{cells.ENDEREÇO}}, São Paulo, SP&output=embed&iwloc=near" width="400" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+	    	</div>
+  		</script>
+		</div>
+</body>
+</html>
