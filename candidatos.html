@@ -166,7 +166,7 @@
 
 		$(".busca input").change(function () {
 			$('#hr').fadeOut(function () {
-				$('#hr').empty();
+				$(".card:not(.selected)").remove();
 				$('#hr').sheetrock({
 				  url: candidatos_sheet,
 				  query: getQuery(),
@@ -193,7 +193,7 @@
 	width:182px;
 	height:200px;
 	text-align: center;
-	float:right;
+	float:left;
 	margin:3px;
 	margin-bottom: 10px;
 	background-color: #F2F2F2;
