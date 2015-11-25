@@ -84,9 +84,7 @@
 }
 
 .candidato .busca input {
-    margin-top:15px;
-    margin-bottom:15px;
-    margin-right: 15px;
+    margin: 5px;
     width:300px;
     height:34px;
     font-size: 16px;
@@ -117,4 +115,11 @@
   color:#FFF;
   font-size: 12px;
   font-weight: 600;
+}
+
+.tag {
+  font-size: 11px;
+}
+.tag::before {
+  content: "#";
 }

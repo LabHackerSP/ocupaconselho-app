@@ -22,6 +22,29 @@
 
 <script>
 
+	var toggle = function (i) {
+		$(i).toggleClass("selected");
+		var count = $(".selected").length;
+		if (count >= 5) {
+			var candidatos = []
+			var b = confirm("Você confirma a seleção dos 5 candidatos?");
+			if (b) {
+				var c = $(".selected .n").each(function (i, f){
+						candidatos.push($(f).text());
+					});
+			
+			window.location.href = "/cola.html?nome=" + gup('nome') + "&candidatos="+candidatos.join(',');
+
+			}
+		}
+
+	}
+
+	Handlebars.registerHelper('split', function(text) {
+  		var t = text.split(" ");
+  		return "<span class='tag'>" + t.join("</span> <span class='tag'>") + "</span>";
+	});
+	
 	var getQuery = function () {
 		var nome = $("input[name=nome]").val()
 		var sub = $("input[name=sub]").val()
@@ -50,8 +73,11 @@
 
 		var subs_sheet = 'https://docs.google.com/spreadsheets/d/1f5rpmZr09cvJDGhk4L-3ZkAvmWuutUP1iBNQ4tzt2H4/edit#gid=1601481367';
 
+		var tags_sheet = 'https://docs.google.com/spreadsheets/d/1f5rpmZr09cvJDGhk4L-3ZkAvmWuutUP1iBNQ4tzt2H4/edit#gid=1200910956';
+
 		var local_sheet = 'https://docs.google.com/spreadsheets/d/1kWpm-G3dAFwVQxkH6n_BNZqJUkNAkUrpZ6ZjBuff9gw/edit#gid=1275282574';
 		
+		//Sub typeahead
 		sheetrock({
   			url: subs_sheet,
 			query: "select *",
@@ -83,6 +109,37 @@
   		}
 		});
 
+		//Tags typeahead
+		sheetrock({
+  			url: tags_sheet,
+			query: "select *",
+  			callback: function (error, options, response) {
+    			
+    			values = []
+    			for (i in response.rows) {
+    				values = values.concat(response.rows[i].cellsArray[0].split(" ")) 
+    			}
+    			values = jQuery.unique(values);
+
+				values = new Bloodhound({
+  					datumTokenizer: Bloodhound.tokenizers.whitespace,
+  					queryTokenizer: Bloodhound.tokenizers.whitespace,
+  					// `states` is an array of state names defined in "The Basics"
+  					local: values
+				});
+		
+
+    				$("input[name=tag]").typeahead({
+  						hint: true,
+  						highlight: true,
+  						minLength: 3
+					},
+					{
+  						name: 'tag',
+  						source: values
+					});
+  		}
+		});
 
 
 		
@@ -102,7 +159,7 @@
 		$('#hr-local').sheetrock({
 				  url: local_sheet,
 				  query: "select * where B contains '"+gup('nome')+"'",
-				  fetchSize: 1,
+				  fetchSize: 2,
 				  rowTemplate: HRLocalTemplate
 				});
 		}
@@ -237,6 +294,10 @@
 	height:45px;
 }
 
+.selected {
+	background-color: #8C3438 !important;
+}
+
 </style>
 </head>
 
@@ -289,20 +350,19 @@
 
 		<div id="hr">
   		<script id="hr-template" type="text/x-handlebars-template">
-	    	<div class="card">
+	    	<div class="card" onclick="javascript:toggle(this);">
 	    		
 	      		<div class="top">
 	      			<img class="foto" src="" />
 	      			<div class="numero">
 	      			<span class="lab">Nº DE URNA</span><br />
-	      				<span>{{cells.Numero}}</span>
+	      				<span class="n">{{cells.Numero}}</span>
 	      				</div>
 	      		</div>
 	      		<div class="nome">{{cells.Nome}}</div>
 	      		<div class="bottom">
 		      		<div class="tags">
-		      			<span class="tag">#educacao</span>
-		      			<span class="tag">#cultura</span>
+		      			{{{split cells.Tags}}}
 		      		</div>
 		      		<!-- <div class="label label-warning">{{cells.Subprefeitura}}</div> -->
 	    		</div>
