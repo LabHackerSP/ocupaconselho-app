@@ -44,6 +44,11 @@
   height:269px;
   background-color: #8C3438;
   background-image: url('../imgs/banner.png');
+  text-align: center;
+}
+
+.banner img {
+  padding-top: 35px;
 }
 
 .tagline {
