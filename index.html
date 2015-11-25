@@ -63,7 +63,7 @@
 		$('input[name=busca]').keypress(function (e) {
   			if (e.which == 13) {
     		var nome = $("input[name=busca]").val()
-    		window.location.href = "/candidatos.html?nome=" + nome;
+    		window.location.href = "./candidatos.html?nome=" + nome;
     		return false;    //<---- Add this line
   			}
 		});
