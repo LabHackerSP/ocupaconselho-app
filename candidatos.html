@@ -26,19 +26,15 @@
 	var toggle = function (i) {
 		$(i).toggleClass("selected");
 		var count = $(".selected").length;
-		if (count >= 5) {
+		if (count == 5) {
 			var candidatos = []
-			var b = confirm("Você confirma a seleção dos 5 candidatos?");
-			if (b) {
-				var c = $(".selected .n").each(function (i, f){
-						candidatos.push($(f).text());
+			$(".can_lista").empty();
+			var c = $(".selected .nome").each(function (i, f){
+						$(".can_lista").append("<li>"+$(f).text()+"</li>");
 					});
-			
-			window.location.href = "./cola.html?nome=" + gup('nome') + "&candidatos="+candidatos.join(',');
 
+			$('#myModal').modal();
 			}
-		}
-
 	}
 	
 	var getQuery = function () {
@@ -180,6 +176,15 @@
 			refreshBusca();
 		});
 
+
+		$("#confirma").click(function () {
+			var candidatos = [];
+			var c = $(".selected .n").each(function (i, f){
+				candidatos.push($(f).text());
+			});
+			window.location.href = "./cola.html?nome=" + gup('nome') + "&candidatos="+candidatos.join(',');
+	
+		});
 	});
 </script>
 
@@ -372,7 +377,26 @@
 	    		</div>
 	    	</div>
   		</script>
-		</ol>
-	</<div>
+	<div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Seus candidatos</h4>
+      	</div>
+	      <div class="modal-body">
+	        <ul class="can_lista">
+	        </ul>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Corrige</button>
+	        <button id="confirma" type="button" class="btn btn-success">Confirma</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 </html>
