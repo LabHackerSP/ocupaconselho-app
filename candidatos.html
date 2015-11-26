@@ -40,11 +40,6 @@
 		}
 
 	}
-
-	Handlebars.registerHelper('split', function(text) {
-  		var t = text.split(" ");
-  		return "<span class='tag'>" + t.join("</span> <span class='tag'>") + "</span>";
-	});
 	
 	var getQuery = function () {
 		var nome = $("input[name=nome]").val()

@@ -59,7 +59,7 @@
   		}
 		});
 
-
+		// Envia form com enter
 		$('input[name=busca]').keypress(function (e) {
   			if (e.which == 13) {
     		var nome = $("input[name=busca]").val()
@@ -68,6 +68,8 @@
   			}
 		});
 
+		// Inicializa os popovers
+		$('[data-toggle="popover"]').popover()
 	});
 </script>
 </head>
@@ -95,8 +97,8 @@
 	<div class="middle">
 		<div class="busca-holder">
 		<div class="busca">
-  			<input id="busca-sessao" name="busca" type="text" class="typeahead" placeholder="DIGITE SEU LOCAL DE VOTAÇÃO" aria-describedby="sizing-addon1">
-			<a class="but">NÃO SEI O MEU LOCAL DE VOTAÇÃO</a>
+  			<input id="busca-sessao" name="busca" type="text" class="typeahead" placeholder="DIGITE SEU LOCAL REGULAR DE VOTAÇÃO" aria-describedby="sizing-addon1">
+			<a tabindex="0" class="but" data-toggle="popover" data-html="true" data-placement="top" data-trigger="focus" data-content="Acesse o site do <a href='http://www.tre-sp.jus.br/eleitor/titulo-e-local-de-votacao/consulta-por-nome' target='_blank'>TRE-SP</a> e busque o seu local de votação fornecendo seu <b>Nome</b>, <b>Data de Nascimento</b> e <b>Nome da Mãe</b>.">NÃO SEI O MEU LOCAL DE VOTAÇÃO</a>
 		</div>
 		</div>
 		<div id="hr">
