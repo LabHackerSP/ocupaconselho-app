@@ -8,7 +8,7 @@
 <script src="js/sheetrock.min.js"></script>
 <script src="js/handlebars.min.js"></script>
 <script src="js/typeahead.bundle.js"></script>
-<script src="js/locais.js"></script>
+<script src="js/config.js"></script>
 <script src="js/misc.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
@@ -24,13 +24,12 @@
 <script>
 
 	$().ready(function (){
-		var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1kWpm-G3dAFwVQxkH6n_BNZqJUkNAkUrpZ6ZjBuff9gw/edit#gid=1275282574'
 		// Compile the Handlebars template for HR leaders.
 		var HRTemplate = Handlebars.compile($('#hr-template').html());
 
 		//Locais typeahead
 		sheetrock({
-  			url: mySpreadsheet,
+  			url: local_sheet,
 			query: "select B",
   			callback: function (error, options, response) {
     			values = []
