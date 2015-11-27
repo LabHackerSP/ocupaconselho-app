@@ -1,5 +1,5 @@
 <?php 
-	$ogimage = $_SERVER['SERVER_NAME'] . dirname($_SERVER['REQUEST_URI']) . "php/image.php?" . $_SERVER['QUERY_STRING'];
+	$ogimage = $_SERVER['SERVER_NAME'] . dirname($_SERVER['REQUEST_URI']) . "/php/image.php?" . $_SERVER['QUERY_STRING'];
 ?>
 <html>
 <head>
