@@ -1,6 +1,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta property="og:title"
+content="Meus candidatos para o Conselho Participativo Municipal" />
+<meta property="og:site_name" content="#OCUPACONSELHO"/>
+<meta property="og:image" content="http://ocupaconselho.org.br/vote/imgs/logo-ocupa-banner.png">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="600">
+
 <title>#OCUPACONSELHO</title>
 
 <!-- Load jQuery and Sheetrock from CDNJS -->
@@ -63,6 +71,8 @@
 				  rowTemplate: HRLocalTemplate
 				});
 		}
+		var ogimage = "http://ocupaconselho.org.br/vote/php/imagem.php?nome=" + gup("nome") + "&candidatos=" + gup("candidatos");
+		$('meta[property="og:image"]').attr('content', ogimage);
 
 	});
 </script>
@@ -71,9 +81,9 @@
 #hr {
 	text-align: center;
 	clear:both;
-	min-height: 400px;
-	width:440px;
-	padding-left:45px;
+	min-height: 315px;
+	width:600px;
+	padding-left:0px;
 }
 
 .card {
@@ -126,17 +136,17 @@
 
 #hr-local {
 	clear:both;
-	width:470px;
+	width:600px;
 	text-align: left;
 	height:140px;
 }
 
 .local { 
-	width:470px;
-	height:120px;
+	width:600px;
+	height:80px;
 	background-color: #8C3438;
 	color:#FFFFFF;
-	text-align: left;
+	text-align: center;
 	float:right;
 	padding-left:15px;
 }
@@ -165,11 +175,13 @@
 }
 
 .tagline {
-	width:470px;
+	width:600px;
+	color:#FFFFFF;
+	background-color: #8C3438;
 }
 
 .middle {
-	width:470px;
+	width:600px;
 }
 </style>
 </head>
@@ -182,17 +194,6 @@
 
 	<div class="middle">
 		
-		<div id="hr-local">
-  		<script id="hr-local-template" type="text/x-handlebars-template">
-    		<div class="local">
-    			<h2>{{cells.NOME}}</h2>
-    			<div>{{cells.ENDEREÇO}}</div>
-    			<div class="local-legenda">Para quem vota normalmente em {{cells.NOME_TRE}}</div>
-	    	</div>
-			
-  		</script>
-		</div>	
-
 		<div id="hr">
   		<script id="hr-template" type="text/x-handlebars-template">
 	    	<div class="card" onclick="javascript:toggle(this);">
@@ -213,6 +214,19 @@
 	    		</div>
 	    	</div>
   		</script>
-		</div>
+  		</div>
+	
+		<div id="hr-local">
+  		<script id="hr-local-template" type="text/x-handlebars-template">
+    		<div class="local">
+    			<div class="local-legenda">Seu local de votação:</div>
+    			<b>{{cells.NOME}}</b>
+    			<div>{{cells.ENDEREÇO}}</div>
+	    	</div>
+			
+  		</script>
+		</div>	
+
+	</div>
 </body>
 </html>
