@@ -1,5 +1,6 @@
 <?php 
 	$ogimage = $_SERVER['SERVER_NAME'] . dirname($_SERVER['REQUEST_URI']) . "/php/image.php?" . $_SERVER['QUERY_STRING'];
+	$url = 'http://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 ?>
 <html>
 <head>
@@ -7,8 +8,7 @@
 <meta property="og:title"
 content="Meus candidatos para o Conselho Participativo Municipal" />
 <meta property="og:site_name" content="#OCUPACONSELHO"/>
-<meta property="og:url" content="<?php echo 'http://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-?>">
+<meta property="og:url" content="<?php echo $url; ?>">
 <meta property="og:image" content="<?php echo 'http://' . $ogimage ?>">
 <meta property="og:image:type" content="image/png">
 <meta property="og:type" content="website">
@@ -149,7 +149,7 @@ content="Meus candidatos para o Conselho Participativo Municipal" />
 
 .local { 
 	width:600px;
-	height:80px;
+	height:100px;
 	background-color: #8C3438;
 	color:#FFFFFF;
 	text-align: center;
@@ -189,10 +189,28 @@ content="Meus candidatos para o Conselho Participativo Municipal" />
 .middle {
 	width:600px;
 }
+
+.fb-share-button {
+	padding-top:10px;
+}
+
+@media print {
+	.fb-share-button {
+		display:none !important;
+	}
+}
 </style>
 </head>
 
 <body class="cola">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=803138933106775";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 	<div class="tagline">
 		<h2>AS ELEIÇÕES SERÃO DIA 06/12</h2>
 	</div>
@@ -228,11 +246,12 @@ content="Meus candidatos para o Conselho Participativo Municipal" />
     			<div class="local-legenda">Seu local de votação:</div>
     			<b>{{cells.NOME}}</b>
     			<div>{{cells.ENDEREÇO}}</div>
+	    	<div class="fb-share-button" data-href="<?php echo $url; ?>" data-layout="button"></div>
 	    	</div>
 			
   		</script>
 		</div>	
-
+		
 	</div>
 </body>
 </html>
