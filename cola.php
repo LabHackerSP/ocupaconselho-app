@@ -10,7 +10,7 @@ content="Meus candidatos para o Conselho Participativo Municipal" />
 <meta property="og:url" content="<?php echo 'http://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 ?>">
 <meta property="og:image" content="<?php echo 'http://' . $ogimage ?>">
-<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:type" content="image/png">
 <meta property="og:type" content="website">
 
 <title>#OCUPACONSELHO</title>
