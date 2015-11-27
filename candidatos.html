@@ -185,6 +185,10 @@
 			window.location.href = "./cola.html?nome=" + gup('nome') + "&candidatos="+candidatos.join(',');
 	
 		});
+
+		// Inicializa os popovers
+		$('[data-toggle="popover"]').popover()
+
 	});
 </script>
 
@@ -351,9 +355,9 @@
 
 		<div class="busca-holder">
 		<div class="busca">
-  			<input name="nome" type="text" placeholder="Nome">
-  			<input name="sub" class="typeahead"  type="text"  placeholder="Sub">
-  			<input name="tag" type="text" placeholder="Tags">
+  			<input name="nome" type="text" placeholder="Nome" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="Digite parte do nome do candidato.">
+  			<input name="sub" class="typeahead"  type="text"  placeholder="Sub" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="Digite o nome da Subprefeitura.">
+  			<input name="tag" type="text" placeholder="Tags" data-html="true" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="Digite uma assunto de interesse.<br />Ex: <b>educacao</b>">
 		</div>
 		</div>
 
