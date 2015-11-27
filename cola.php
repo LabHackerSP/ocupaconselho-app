@@ -12,6 +12,8 @@ content="Meus candidatos para o Conselho Participativo Municipal" />
 <meta property="og:image" content="<?php echo 'http://' . $ogimage ?>">
 <meta property="og:image:type" content="image/png">
 <meta property="og:type" content="website">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="300">
 
 <title>#OCUPACONSELHO</title>
 
